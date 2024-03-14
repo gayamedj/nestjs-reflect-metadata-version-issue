@@ -1,6 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 import { BeforeInsert, Column, CreateDateColumn, DeleteDateColumn, Entity, Index, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
-import { passwordHash } from "@infrastructure/helpers/PasswordHash";
 
 @Entity("admins")
 export class AdminEntity {
@@ -49,9 +48,4 @@ export class AdminEntity {
 
     @DeleteDateColumn()
     deletedAt?: Date;
-
-    @BeforeInsert()
-    async setPassword(): Promise<void> {
-        this.password = await passwordHash(this.password);
-    }
 }
